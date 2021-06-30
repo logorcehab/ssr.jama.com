@@ -79,8 +79,5 @@ export default {
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
-  build: buildSettings,
-  router: {
-    middleware: ['device-detector']
-  }
+  build: buildSettings
 }
