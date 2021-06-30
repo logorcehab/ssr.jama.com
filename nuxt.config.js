@@ -1,6 +1,8 @@
 const isTestingAnalytics = false
 
-
+const buildSettings = {
+    transpile: ['vue-lottie']
+}
 export default {
   /*
   ** Nuxt target
@@ -60,9 +62,6 @@ export default {
   */
   modules: [
     // Doc: https://bootstrap-vue.js.org
-    '@nuxtjs/axios',
-    'bootstrap-vue/nuxt',
-    '@nuxtjs/style-resources'
   ],
   loading: {
     color: '#4267B2',
