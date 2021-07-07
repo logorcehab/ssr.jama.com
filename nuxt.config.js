@@ -1,6 +1,7 @@
 const pkg = require("./package");
+import { env } from 'process'
 export default {
-  target: 'server',
+  target: 'static',
   /*
   ** Headers of the page
   */
@@ -43,7 +44,7 @@ export default {
   ],
 
   env: {
-    baseUrl: 'http://localhost:8000/api'
+    baseUrl: `${env.BASE_URL}`
   },
 
   auth: {
@@ -94,7 +95,7 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://localhost:8000/api'
+    baseURL: `${env.BASE_URL}`
   },
 
   /*
