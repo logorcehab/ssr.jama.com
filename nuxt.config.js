@@ -1,83 +1,110 @@
-const isTestingAnalytics = false
-
-const buildSettings = {
-    transpile: ['vue-lottie']
-}
+const pkg = require("./package");
 export default {
-  /*
-  ** Nuxt target
-  ** See https://nuxtjs.org/api/configuration-target
-  */
-  target: 'static',
+  target: 'server',
   /*
   ** Headers of the page
-  ** See https://nuxtjs.org/api/configuration-head
   */
   head: {
-    titleTemplate: '%s',
-    title: process.env.npm_package_name || '',
+    title: pkg.name,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
-      { property: 'og:locale', content: 'en_US' },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Sparc' },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '630' },
-      { name: 'twitter:card', property: 'twitter:card', content: 'summary_large_image' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: pkg.description }
     ],
     link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "stylesheet", href: "https://use.fontawesome.com/releases/v5.6.3/css/all.css", integrity: "sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/", crossorigin:"anonymous" }
     ]
   },
+
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: "#fff" },
+
+  router: {
+    middleware: [
+      'clearValidationErrors'
+    ]
+  },
+
   /*
   ** Global CSS
-  * These won't have share the style with other files but will still be global
   */
-  css: [    
-  ],
-  styleResources: {
-    scss: [
-    ]
-  },
+  css: [],
+
   /*
   ** Plugins to load before mounting the App
-  ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    './plugins/mixins/validation',
+    './plugins/mixins/user',
+    './plugins/axios'
   ],
-  /*
-  ** Auto import components
-  ** See https://nuxtjs.org/api/configuration-components
-  */
-  components: false,
-  /*
-  ** Nuxt.js dev-modules
-  */
-  buildModules: [
-    '@nuxt/typescript-build'
-    ],
+
+  env: {
+    baseUrl: 'http://localhost:8000/api'
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'auth/login', method: 'post', propertyName: 'token'
+          },
+          user: {
+            url: 'me', method: 'get', propertyName: 'data'
+          },
+          logout: {
+            method: 'get',
+            url: 'auth/logout', method: 'get'
+          }
+        }
+      }
+    },
+    redirect: {
+      login: '/auth/login',
+      home: '/'
+    },
+    plugins: [
+      './plugins/auth'
+    ]
+  },
+
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    "@nuxtjs/axios",
+    // Doc: https://bootstrap-vue.js.org/docs/
+    "bootstrap-vue/nuxt",
+    
+    "@nuxtjs/auth"
   ],
-  loading: {
-    color: '#4267B2',
-    height: '2px'
+  buildModules: ['@nuxt/typescript-build'],
+  bootstrapVue: {
+    bootstrapCSS: true, // or `css`
+    bootstrapVueCSS: true // or `bvCSS`
   },
+
+  /*
+  ** Axios module configuration
+  */
   axios: {
-    proxy: process.env.NODE_ENV !== 'production'
+    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://localhost:8000/api'
   },
-  proxy: {
-    '/apis/': {
-      target: process.env.BACK_END_URL || 'http://localhost:5000'
-    }
-  },
+
   /*
   ** Build configuration
-  ** See https://nuxtjs.org/api/configuration-build/
   */
-  build: buildSettings
-}
+  build: {
+    /*
+    ** You can extend webpack config here
+    */
+    extractCSS: true,
+    extend(config, ctx) {}
+  }
+};
