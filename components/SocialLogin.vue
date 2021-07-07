@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script >
 import FaIcons from 'fa-icons';
 import { env } from 'process';
 export default {

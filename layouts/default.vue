@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script >
 import TopNav from "~/layouts/partials/TopNav.vue";
 
 export default {
