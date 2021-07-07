@@ -44,7 +44,7 @@ export default {
   ],
 
   env: {
-    baseUrl: `${env.BASE_URL}`
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
 
   auth: {
@@ -94,7 +94,7 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: `${env.BASE_URL}`
+    baseURL: env.BASE_URL
   },
 
   /*
