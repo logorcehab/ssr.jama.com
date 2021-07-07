@@ -11,13 +11,14 @@
 
 <script lang="ts">
 import FaIcons from 'fa-icons';
+import { env } from 'process';
 export default {
     components:{
         FaIcons
     },
     methods: {
         socialLogin(service) {
-            window.location.href = `${process.env.baseUrl}/auth/login/${service}`;
+            window.location.href = `${env.BASE_URL}/auth/login/${service}`;
         }
     }
 }
