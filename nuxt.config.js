@@ -84,7 +84,6 @@ export default {
     
     "@nuxtjs/auth"
   ],
-  buildModules: ['@nuxt/typescript-build'],
   bootstrapVue: {
     bootstrapCSS: true, // or `css`
     bootstrapVueCSS: true // or `bvCSS`

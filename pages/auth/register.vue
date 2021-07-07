@@ -46,7 +46,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script >
 import SocialLogin from '@/components/SocialLogin.vue';
 
 export default {
