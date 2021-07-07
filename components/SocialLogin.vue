@@ -10,15 +10,15 @@
 </template>
 
 <script >
-import FaIcons from 'fa-icons';
-import { env } from 'process';
+console.log(process.env.BASE_URL)
+const FaIcons = require('fa-icons');
 export default {
     components:{
         FaIcons
     },
     methods: {
         socialLogin(service) {
-            window.location.href = `${env.BASE_URL}/auth/login/${service}`;
+            window.location.href = `${process.env.baseUrl}/auth/login/${service}`;
         }
     }
 }
